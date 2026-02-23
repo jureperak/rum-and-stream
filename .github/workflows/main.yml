@@ -1,0 +1,27 @@
+name: Deploy rum-and-stream
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy stack
+        env:
+          MEDIA_ROOT: ${{ vars.MEDIA_ROOT }}
+          DOCKER_NETWORK: ${{ vars.DOCKER_NETWORK }}
+          TZ: ${{ vars.TZ }}
+          PUID: ${{ vars.PUID }}
+          PGID: ${{ vars.PGID }}
+        run: |
+          docker compose pull
+          docker compose up -d --remove-orphans
+
+          # cleanup (safe)
+          docker image prune -f
+          docker container prune -f
