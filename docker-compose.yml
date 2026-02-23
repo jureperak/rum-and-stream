@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  tortuga:
+    image: lscr.io/linuxserver/jellyfin
+    container_name: tortuga
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${MEDIA_ROOT}/config/jellyfin:/config
+      - ${MEDIA_ROOT}/movies:/media/movies
+    networks:
+      - ${DOCKER_NETWORK}
+    restart: unless-stopped
+
+  blackpearl:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: blackpearl
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - WEBUI_PORT=8080
+    volumes:
+      - ${MEDIA_ROOT}/config/qbittorrent:/config
+      - ${MEDIA_ROOT}/downloads:/downloads
+    networks:
+      - ${DOCKER_NETWORK}
+    restart: unless-stopped
+
+networks:
+  ${DOCKER_NETWORK}:
+    external: true
