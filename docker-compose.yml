@@ -8,7 +8,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${MEDIA_ROOT}/config/jellyfin:/config
-      - ${MEDIA_ROOT}/movies:/media/movies
+      - ${MEDIA_ROOT}/media/movies:/media/movies
     networks: [edge]
     restart: unless-stopped
 
