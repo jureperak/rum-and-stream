@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   tortuga:
     image: lscr.io/linuxserver/jellyfin
@@ -11,8 +9,7 @@ services:
     volumes:
       - ${MEDIA_ROOT}/config/jellyfin:/config
       - ${MEDIA_ROOT}/movies:/media/movies
-    networks:
-      - ${DOCKER_NETWORK}
+    networks: [edge]
     restart: unless-stopped
 
   blackpearl:
@@ -26,10 +23,10 @@ services:
     volumes:
       - ${MEDIA_ROOT}/config/qbittorrent:/config
       - ${MEDIA_ROOT}/downloads:/downloads
-    networks:
-      - ${DOCKER_NETWORK}
+    networks: [edge]
     restart: unless-stopped
 
 networks:
-  ${DOCKER_NETWORK}:
+  edge:
     external: true
+    name: ${DOCKER_NETWORK}
