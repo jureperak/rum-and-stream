@@ -9,6 +9,7 @@ services:
     volumes:
       - ${MEDIA_ROOT}/config/jellyfin:/config
       - ${MEDIA_ROOT}/media/movies:/media/movies
+      - ${MEDIA_ROOT}/media/shows:/media/shows
     networks: [edge]
     restart: unless-stopped
 
