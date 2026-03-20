@@ -3,6 +3,7 @@ name: Deploy rum-and-stream
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   deploy:
